@@ -1,7 +1,7 @@
 # NAME: Direct
 # AUTHOR: mumu
-# REPO: 
-# UPDATED: 2024-07-03 16:14:51
+# REPO: https://github.com/RaidersMu/Clash/blob/main/
+# UPDATED: 2024-12-15 21:34:51
 # DOMAIN-KEYWORD: 0
 # DOMAIN-SUFFIX: 9
 # TOTAL: 9

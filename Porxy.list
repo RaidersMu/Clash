@@ -3,8 +3,8 @@
 # REPO: https://github.com/RaidersMu/Clash/blob/main/
 # UPDATED: 2024-12-15 21:34:51
 # DOMAIN-KEYWORD: 0
-# DOMAIN-SUFFIX: 15
-# TOTAL: 15
+# DOMAIN-SUFFIX: 16
+# TOTAL: 16
 DOMAIN-SUFFIX,coze.com
 DOMAIN-SUFFIX,fulijianghu.com
 DOMAIN-SUFFIX,dlsite.com
@@ -20,4 +20,4 @@ DOMAIN-SUFFIX,registry.hub.docker.com
 DOMAIN-SUFFIX,a4k.net
 DOMAIN-SUFFIX,cdn.fujian.lol
 DOMAIN-SUFFIX,f-droid.org
-
+DOMAIN-SUFFIX,roovza-launches.appsflyersdk.com

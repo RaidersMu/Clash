@@ -23,5 +23,5 @@ DOMAIN-SUFFIX,f-droid.org
 DOMAIN-SUFFIX,roovza-launches.appsflyersdk.com
 DOMAIN-SUFFIX,sf16-website-login.neutral.ttwstatic.com
 DOMAIN-SUFFIX,broker.jagat.io
-DOMAIN-SUFFIX,web.parsec.app,Proxy
-DOMAIN-SUFFIX,parsec.app,Proxy
+DOMAIN-SUFFIX,web.parsec.app
+DOMAIN-SUFFIX,parsec.app

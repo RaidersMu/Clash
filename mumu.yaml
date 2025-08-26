@@ -1,0 +1,268 @@
+# 机场订阅
+proxy-providers:
+  Airport1:
+    url: "https://jmssub.net/members/getsub.php?service=1173503&id=8aecbfb6-ae22-4eff-88dc-5a1368dbfe58"
+    type: http
+    interval: 14400
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 直连
+
+# 节点信息
+proxies:
+  - {name: 直连, type: direct}
+  - {name: 拒绝, type: reject}
+
+# 全局配置
+port: 7890
+socks-port: 7628
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7895
+allow-lan: true
+bind-address: "*"
+ipv6: false
+unified-delay: true
+tcp-concurrent: true
+log-level: info
+keep-alive-idle: 600
+keep-alive-interval: 15
+profile:
+  store-selected: true
+  store-fake-ip: true
+mode: rule
+
+# 控制面板
+external-controller: 0.0.0.0:9090
+secret: ''
+external-ui: "/usr/share/openclash/ui"
+external-ui-name: metacubexd
+geox-url:
+  mmdb: https://testingcf.jsdelivr.net/gh/alecthw/mmdb_china_ip_list@release/lite/Country.mmdb
+  geosite: https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat
+
+
+
+# 嗅探
+sniffer:
+  enable: true
+  override-destination: true
+  sniff:
+    QUIC:
+      ports:
+      - 443
+    TLS:
+      ports:
+      - 443
+      - 8443
+    HTTP:
+      ports:
+      - 80
+      - 8080-8880
+      override-destination: true
+  force-domain:
+  - "+.netflix.com"
+  - "+.nflxvideo.net"
+  - "+.amazonaws.com"
+  - "+.media.dssott.com"
+  skip-domain:
+  - "+.apple.com"
+  - Mijia Cloud
+  - dlg.io.mi.com
+  - "+.oray.com"
+  - "+.sunlogin.net"
+  - "+.push.apple.com"
+  force-dns-mapping: true
+  parse-pure-ip: true
+
+# 入站
+tun:
+  enable: true
+  stack: gvisor
+  device: utun
+  dns-hijack:
+  - 127.0.0.1:53
+  endpoint-independent-nat: true
+  auto-route: false
+  auto-detect-interface: false
+  auto-redirect: false
+  strict-route: false
+authentication:
+- mumu:Raiders0628?
+
+# DNS模块
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: redir-host
+  listen: 0.0.0.0:7874
+  nameserver:
+  - 202.106.46.151
+  - 202.106.195.68
+  fake-ip-filter-mode: blacklist
+
+# 出站策略，根据自己情况调整每个策略里分组排序，增删都可以，比如把美国自动放到第一个，比如删除香港故转，注意别漏掉表情逗号等。
+# 如果相应分组没有筛选到对应的国家，请根据自己节点名字调整筛选关键字。
+# 没有再使用锚点，是考虑很多新手修改难度，这样新手修改某个分组更容易些。
+dl: &dl {type: select, proxies: [♻️ 自动选择,🚀 手动切换,直连]}
+proxy-groups:
+  - {name: 🚀 默认节点, <<: *dl}
+  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连)).)*$"}
+  - {name: 🚀 手动切换, type: select, include-all: true}
+  - {name: 🕹️ JAV, type: select, include-all: true}
+  - {name: Ⓜ️ 木木直连, <<: *dl}
+  - {name: Ⓜ️ 木木代理, <<: *dl}
+  - {name: 👨🏿‍💻 GitHub, <<: *dl}
+  - {name: ♻️ Speedtest, <<: *dl}
+  - {name: 👽 AI, <<: *dl}
+  - {name: ✨ TikTok, <<: *dl}
+  - {name: 📲 电报Telegram, <<: *dl}
+  - {name: 📀 流媒体, <<: *dl}
+  - {name: 🍎 苹果服务, <<: *dl}
+  - {name: 🎶 网易音乐, <<: *dl}
+  - {name: 🎮 国外游戏, <<: *dl}
+  - {name: 🎮 任天堂, <<: *dl}
+  - {name: 🎮 索尼, <<: *dl}
+  - {name: 🎯 全球直连, type: select, proxies: [直连]}
+  - {name: 🍃 应用净化, type: select, proxies: [拒绝,直连]}
+  - {name: 🆎 AdBlock, type: select, proxies: [拒绝,直连]}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [直连]}
+  - {name: 🌐 全部节点, type: select, include-all: true}
+
+# 规则匹配
+rules:
+  - RULE-SET,private_domain,🎯 全球直连
+  - RULE-SET,private_ip,🎯 全球直连
+  - RULE-SET,jinghua_domain,🍃 应用净化
+  - RULE-SET,adblock1_domain,🆎 AdBlock
+  - RULE-SET,adblock2_domain,🆎 AdBlock
+  - RULE-SET,jav_domain,🕹️ JAV
+  - RULE-SET,mumuproxy_domain,Ⓜ️ 木木代理
+  - RULE-SET,mumudirect_domain,Ⓜ️ 木木直连
+  - RULE-SET,wangyimusic_domain,🎶 网易音乐
+  - RULE-SET,speedtest_domain,♻️ Speedtest
+  - RULE-SET,ai_domain,👽 AI
+  - RULE-SET,github_domain,👨🏿‍💻 GitHub
+  - RULE-SET,tiktok_domain,✨ TikTok
+  - RULE-SET,telegram_domain,📲 电报Telegram
+  - RULE-SET,telegram_ip,📲 电报Telegram,no-resolve
+  - RULE-SET,youtube_domain,📀 流媒体
+  - RULE-SET,disney_domain,📀 流媒体
+  - RULE-SET,netflix_domain,📀 流媒体
+  - RULE-SET,proxymedia_domain,📀 流媒体
+  - RULE-SET,netflix_ip,📀 流媒体,no-resolve
+  - RULE-SET,apple_domain,🍎 苹果服务
+  - RULE-SET,apple_ip,🍎 苹果服务,no-resolve
+  - RULE-SET,epic_domain,🎮 国外游戏
+  - RULE-SET,orgin_domain,🎮 国外游戏
+  - RULE-SET,steam_domain,🎮 国外游戏
+  - RULE-SET,nintendo_domain,🎮 任天堂
+  - RULE-SET,sony_domain,🎮 索尼
+  - RULE-SET,google_domain,🚀 默认节点
+  - RULE-SET,google_ip,🚀 默认节点
+  - RULE-SET,global1_domain,🚀 默认节点
+  - RULE-SET,global2_domain,🚀 默认节点
+  - RULE-SET,global3_domain,🚀 默认节点
+  - RULE-SET,geolocation-!cn,🚀 默认节点
+  - RULE-SET,cn_domain,🎯 全球直连
+  - RULE-SET,cn_ip,🎯 全球直连
+  - MATCH,🐟 漏网之鱼
+
+# 规则集
+## type：可选http/file/inline  behavior：可选domain/ipcidr/classical format：可选yaml/text/mrs
+rule-anchor:
+  ip: &ip {type: http, interval: 14400, behavior: ipcidr, format: mrs}
+  domain: &domain {type: http, interval: 14400, behavior: domain, format: mrs} 
+  class: &class {type: http, interval: 14400, behavior: classical, format: text}
+rule-providers: 
+  #🎯 内网地址
+  private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
+  private_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
+
+  #🍃 应用净化
+  jinghua_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list"}
+
+  #🆎 AdBlock1
+  adblock1_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanEasyList.list"}
+
+  #🆎 AdBlock1
+  adblock2_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanEasyListChina.list"}
+
+  #🕹️ JAV
+  jav_domain: { <<: *class, url: "https://raw.githubusercontent.com/RaidersMu/Clash/refs/heads/main/JAV.list"}
+
+  #Ⓜ️ 木木代理
+  mumuproxy_domain: { <<: *class, url: "https://raw.githubusercontent.com/RaidersMu/Clash/refs/heads/main/Porxy.list"}
+
+  #Ⓜ️ 木木直连
+  mumudirect_domain: { <<: *class, url: "https://raw.githubusercontent.com/RaidersMu/Clash/refs/heads/main/Direct.list"}
+  
+  #🎶 网易音乐
+  wangyimusic_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/NetEaseMusic.list"}
+
+  #♻️ Speedtest
+  speedtest_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Speedtest/Speedtest.list"}
+
+  #👽 AI
+  ai_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/OpenAi.list"}
+
+  #👨🏿‍💻 GitHub
+  github_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.list"}
+
+  #✨ TikTok
+  tiktok_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/TikTok/TikTok.list"}
+
+  #📲 电报Telegram
+  telegram_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
+  telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
+
+  #📀 流媒体 YouTube
+  youtube_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/YouTube.list"}
+
+  #📀 流媒体 Disney
+  disney_domain: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/blob/meta/geo/geosite/disney.mrs"}
+
+  #📀 流媒体 Netflix
+  netflix_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
+  netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
+
+  #📀 流媒体 ProxyMedia
+  proxymedia_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list"}
+
+  #🍎 苹果服务
+  apple_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs"}
+  apple_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"}
+
+  #🎮 国外游戏 Epic
+  epic_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Epic.list"}
+
+  #🎮 国外游戏 Orgin
+  orgin_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Origin.list"}
+
+  #🎮 国外游戏 Steam
+  steam_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Steam.list"}
+
+  #🎮 任天堂 Nintendo
+  nintendo_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Nintendo.list"}
+
+  #🎮 索尼 Sony
+  sony_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Sony.list"}
+
+  #🚀 谷歌
+  google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
+  google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
+
+  #🚀 默认节点 Global
+  global1_domain: { <<: *class, url: "https://raw.githubusercontent.com/RaidersMu/Clash/refs/heads/main/Global.list"}
+  global2_domain: { <<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global.list"}
+  global3_domain: { <<: *class, url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyGFWlist.list"}
+  geolocation-!cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
+
+  #🎯 全球直连
+  cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}
+  cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
+  
+  
+  

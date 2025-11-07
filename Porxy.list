@@ -27,3 +27,11 @@ DOMAIN-SUFFIX,web.parsec.app
 DOMAIN-SUFFIX,parsec.app
 DOMAIN-SUFFIX,justmysocks3.net
 DOMAIN-SUFFIX,cn.tgstat.com
+DOMAIN-SUFFIX,apple-relay.apple.com, Proxy
+DOMAIN-SUFFIX,apple-relay.fastly-edge.com,Proxy
+DOMAIN-SUFFIX,apple-relay.cloudflare.com,Proxy
+DOMAIN-SUFFIX,gateway.icloud.com, Proxy
+DOMAIN-SUFFIX,guzzoni.apple.com,Proxy
+DOMAIN-SUFFIX,cp4.cloudflare.com, Proxy 
+DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com, Proxy
+DOMAIN-SUFFIX,apps.mzstatic.com,Proxy

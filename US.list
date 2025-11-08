@@ -2,7 +2,7 @@
 # AUTHOR: mumu
 # REPO: https://github.com/RaidersMu/Clash/blob/main/
 # UPDATED: 2024-12-15 21:34:51
-# 苹果AI节点
+# 苹果AI
 DOMAIN-SUFFIX,gateway.icloud.com
 DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
 DOMAIN-SUFFIX,apps.mzstatic.com
@@ -14,3 +14,9 @@ DOMAIN-SUFFIX,cp4.cloudflare.com
 DOMAIN-SUFFIX,apple-relay.apple.com
 DOMAIN-SUFFIX,mask-api.icloud.com
 DOMAIN-SUFFIX,time.g.aaplimg.com
+#JAV
+DOMAIN-SUFFIX,javdb.com、
+#Onlyfans
+DOMAIN-SUFFIX,onlyfans.com
+#其他
+DOMAIN-SUFFIX,c0.jdbstatic.com

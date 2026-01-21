@@ -50,3 +50,4 @@ DOMAIN-SUFFIX,cdngwc.club
 DOMAIN-SUFFIX,cdngwc.cc
 DOMAIN-SUFFIX,cdnhth.club
 IP-CIDR,51.255.74.194/32,no-resolve
+IP-CIDR,193.182.111.12/32,no-resolve

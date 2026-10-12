@@ -20,6 +20,13 @@ DOMAIN-SUFFIX,javdb.com、
 DOMAIN-SUFFIX,onlyfans.com
 #其他
 DOMAIN-SUFFIX,c0.jdbstatic.com
+# JMComic 分流规则
+DOMAIN-KEYWORD,jmcomic
+DOMAIN-KEYWORD,jmapiproxy
+DOMAIN-KEYWORD,18comic
+DOMAIN-KEYWORD,jmtt
+DOMAIN-SUFFIX,jm-comic2.cc
+DOMAIN-SUFFIX,jm365.me
 #JMComic
 DOMAIN-SUFFIX,jmapp3.cc
 DOMAIN-SUFFIX,jmdanjonproxy.xyz
